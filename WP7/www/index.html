@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=480, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    
+    <title>PhoneGap WP7</title>
+    
+	  <link rel="stylesheet" href="master.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
+            
+      <script type="text/javascript" charset="utf-8" src="phonegap-1.3.0.js"></script>
+      <script type="text/javascript" charset="utf-8" src="compass.js"></script>
+       
+      <script type="text/javascript">
+
+          document.addEventListener("deviceready",onDeviceReady,false);
+
+          var compassWatchId = null;
+
+          // once the device ready event fires, you can safely do your thing! -jm
+          function onDeviceReady()
+          {
+          // document.getElementById("welcomeMsg").innerHTML += "PhoneGap is ready! version=" + window.device.phonegap;
+          console.log("onDeviceReady. You should see this message in Visual Studio's output window.");
+
+          }
+
+          function onHeadingUpdate(heading)
+          {
+          compassRose.style.msTransform = "rotate(-" + heading.trueHeading + "deg)";
+          trueHeadingTxt.innerText = "trueHeading : " + heading.trueHeading;
+          magHeadingTxt.innerText = "magneticHeading : " + heading.magneticHeading;
+          accuracyTxt.innerText = "headingAccuracy : " + heading.headingAccuracy;
+          timestampTxt.innerText = "timestamp : " + heading.timestamp;
+          }
+
+          function onCompassFail(err)
+          {
+          var msg = err == CompassError.COMPASS_NOT_SUPPORTED ? "Compass not supported" : "Internal Error";
+          errMsg.innerText = "Compass Error : " + err + " - " + msg;
+          }
+
+          function startCompassWatch(bStart)
+          {
+          errMsg.innerText = "";
+          
+          if(bStart)
+          {
+          if(!compassWatchId)
+          {
+          compassWatchId = navigator.compass.watchHeading(onHeadingUpdate,onCompassFail,{frequency:100});
+          }
+          }
+          else if(compassWatchId)
+          {
+          navigator.compass.clearWatch(compassWatchId);
+          compassWatchId = null;
+          }
+          }
+
+      </script>
+      
+	 
+	  
+
+  </head>
+  <body>
+      
+      <div style="background:url(CompassRoseBG.png) no-repeat center center">
+        <img id="compassRose" src="CompassRose.png" style="margin:20px 80px;"></img>
+      </div>
+
+      <div class="info" id="trueHeadingTxt" style="color:Red;">trueHeading : </div>
+      <div class="info" id="magHeadingTxt" style="color:Blue;">magneticHeading :</div>
+      <div class="info" id="accuracyTxt" style="color:Yellow;">headingAccuracy :</div>
+      <div class="info" id="timestampTxt" style="color:Green;">timestamp :</div>
+      
+      <div style="margin:40px 40px;">
+          <span class="btn" onclick="startCompassWatch(true);">Start Watch</span>
+          <span class="btn" onclick="startCompassWatch(false);">Stop Watch</span>
+      </div>
+
+      <div id="errMsg" class="info" style="background-color:Red;color:#000;">
+             
+      </div>
+  </body>
+</html>

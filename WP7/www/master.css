@@ -1,0 +1,51 @@
+  
+  
+  body 
+  {
+    background:#111 none repeat scroll 0 0;
+    color:#ccc;
+    font-family:"Segoe WP", Verdana, Geneva, sans-serif;
+    margin:12px 12px;
+    border-top:1px solid #000;
+    font-size:24px;
+    
+  }
+
+div.info
+{
+    margin-left:20px;
+    font-size: 24px;
+}
+
+
+span.btn
+{
+    background: black;
+    color: white;
+    text-decoration: none;
+    line-height:32px;
+    min-height:32px;
+    min-width:80px;
+    font-size: 24px;
+    text-decoration:none;
+    text-align:center;
+    padding:12px 12px;
+    margin:8px 8px;
+    font-family:"Segoe WP Semibold";
+    border:solid #ccc 1px;
+}
+
+
+
+
+
+
+ 	
+
+
+
+
+
+
+
+
